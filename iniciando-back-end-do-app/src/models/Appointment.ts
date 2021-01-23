@@ -4,7 +4,17 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+
+import User from './User';
+
+/*
+Um para um(OneToONe)
+Um para muitos(OneToMany)
+Muitos para muitos(ManyToMany)
+*/
 
 @Entity('appointments')
 class Appointment {
@@ -12,7 +22,11 @@ class Appointment {
   id: string;
 
   @Column()
-  provider: string;
+  provider_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'provider_id' })
+  provider: User;
 
   @Column('timestamp without time zone')
   date: Date;
